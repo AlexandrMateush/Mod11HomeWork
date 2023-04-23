@@ -2,26 +2,22 @@ package org.example;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class NumberName {
+    static List<String> name = List.of(" Sasha",  "Dima", " Vova"," Dasha"," Misha ");
 
-private static final String name = "1. Sasha, 2. Dima, 3. Vova, 4. Dasha, 5. Misha, ";
-    static List<String> names = List.of(name.split("\\d\\W\\s"));
-
-    public static String Names(List<String> nameArray) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < names.size(); i++) {
-            if (!(i % 2 == 0)) {
-                sb.append(i).append(". ").append(names.get(i));
-            }
-        }
-        sb.delete(sb.length() - 1, sb.length());
-        return sb.toString();
-    }
+public static String Names(List<String> name) {
+    return IntStream.range(0, name.size())
+            .filter(i -> i % 2 == 0)
+            .mapToObj(i -> (i + 1) + ". " + name.get(i))
+            .collect(Collectors.joining(", "));
+}
 
 
     public static void main(String[] args) {
-        System.out.println(Names(names));
+        System.out.println(Names(name));
 
     }
 }
